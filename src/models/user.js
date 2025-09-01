@@ -21,7 +21,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         email: {
             type: Sequelize.STRING,
-            allowNull: true
+            allowNull: false,
+            unique: true,
+            validate: {
+              isEmail: true
+            }
         },
         senha: {
             type: Sequelize.STRING,
@@ -29,7 +33,13 @@ module.exports = (sequelize, DataTypes) => {
         },
         role_id: {
             type: Sequelize.INTEGER,
-            allowNull: true
+            allowNull: false,
+            references: {
+              model: 'roles',
+              key: 'id'
+            },
+            onUpdate: 'CASCADE',
+            onDelete: 'SET NULL'
         }
     },
     {
